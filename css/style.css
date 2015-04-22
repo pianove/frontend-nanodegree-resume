@@ -1,11 +1,24 @@
-* {
+body {
   padding:0;
   margin:0;
   font-family: 'Roboto', sans-serif;
+  font-size: 16px;
 }
 
 .clearfix {
   overflow: auto;
+}
+
+#btnIntl {
+  float: right;
+  margin-top: 5px;
+}
+
+#btnPrint {
+  float: right;
+  margin: 5px;
+  display: flex;
+  padding-bottom: 4px;
 }
 
 .education-entry, .work-entry, .project-entry {
@@ -13,19 +26,30 @@
   padding-right: 5%;
 }
 
+hr {
+    margin : auto;
+}
+
 h1 {
   font-size: 40px;
-  color: #F5A623;
+  color: darkorange;
   line-height: 48px;
   display: inline;
+}
+
+#role {
+  color: white;   
+  font-weight: bold;
+  font-size: 30px;
 }
 
 h2 {
   font-weight: bold;
   font-size: 24px;
-  color: #999999;
+  color: dimgray;
   line-height: 29px;
   padding: 10px;
+  margin: 0;
 }
 
 h3 {
@@ -52,7 +76,7 @@ h2, h3, h4, h5 {
 .date-text {
   font-style: italic;
   font-size: 14px;
-  color: #999999;
+  color: dimgray;
   line-height: 16px;
   float: left;
 }
@@ -60,7 +84,7 @@ h2, h3, h4, h5 {
 .location-text {
   font-style: italic;
   font-size: 14px;
-  color: #999999;
+  color: dimgray    ;
   line-height: 16px;
   float: right;
 
@@ -76,7 +100,7 @@ a {
   color: #1199C3;
   text-decoration: none;
   margin-top: 10px;
-  display: block;
+  display:block;
 }
 
 .welcome-message {
@@ -87,8 +111,13 @@ a {
 }
 
 #skillsH3 {
-  color: #F5AE23;
+  color: darkorange;
   display: none;
+  font-size: 18px;
+}
+
+#workExperience {
+    margin-top: 0;
 }
 
 .orange {
@@ -96,27 +125,35 @@ a {
 }
 
 .orange-text {
-  color: #F5AE23;
+  color: darkorange;
 }
 
 .white-text {
   font-weight: bold;
-  color: #FFFFFF;
+  color: whitesmoke;
 }
 
 .gray {
-  background-color: #F3F3F3;
+  background-color:lightgray;
   padding-bottom: 10px;
   clear:both;
 }
 
-.dark-gray {
-  background-color: #4A4A4A;
+.black {
+  background-color: black;
 }
 
+#goTo {
+  float: right;
+  display: inline;
+  margin: 0;
+  color: blue;
+  font-size: 16px;
+  font-style: italic;
+}
 /* TODO: Replace with image later */
 #header {
-  background-color: #484848;
+  background-color: black;
 }
 
 .flex-box {
@@ -132,7 +169,7 @@ a {
   padding-top: 2.5%;
   padding-left: 5%;
   padding-right: 5%;
-  padding-bottom: 2.5%
+  padding-bottom: 5px
 }
 
 ul {
@@ -144,10 +181,6 @@ ul {
   padding: 10px;
   width: 200px;
   display: none;
-}
-
-img {
-  padding: 10px;
 }
 
 /* Bar chart stuff */
@@ -170,15 +203,60 @@ span {
   text-align: center;
 }
 
+#nav {
+  width: 100%;
+  padding-bottom: 5px;
+  padding-top: 0;
+}
+
+#navButton {
+  display: inline;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  width:20%;
+  -webkit-box-pack: center;
+  -moz-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: space-around;
+  }
+
+/*
+.nav {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.nav__list {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.nav__item {
+  box-sizing: border-box;
+  display: inline;
+  width: 24%;
+  text-align: center;
+  text-transform: uppercase;
+}
+*/
+
 @media only screen and (max-width: 1024px) {
   #letsConnect {
     margin-top: 5%;
+  }
+  #navButton {
+    width: 20%;
   }
 }
 
 @media only screen and (max-width:900px) {
   .biopic {
     width: 175px;
+  }
+  #navButton {
+    width: 20%;
   }
 }
 
@@ -189,9 +267,39 @@ span {
   .biopic {
     width: 150px;
   }
-  .welcome-message {
+  #navButton {
+    width: 20%;
+  }
+  .welcome-message,
+  #btnIntl {
     display: none;
   }
+}
+
+@media only screen and (max-width: 450px) {
+  #letsConnect {
+    margin-top: 10%;
+  }
+  #btnIntl,
+  .biopic,
+  .welcome-message,
+  #skillsH3 {
+    display: none;
+  }
+  #navButton {
+    width: 20%;
+  }
+  #nav {
+    padding: 0;
+  }
+  #role {
+    font-size: 90%;
+  }
+    
+  h1 {
+    font-size: 25px;  
+  }
+    
 }
 
 #map {

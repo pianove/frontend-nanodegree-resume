@@ -1,0 +1,4 @@
+List of the resources apart from udacity courses that I used to accomplish Project 2 are :
+
+http://www.w3schools.com/
+http://stackoverflow.com/questions/16154650/how-to-print-a-hidden-div-when-printing-using-a-javascript-function. 

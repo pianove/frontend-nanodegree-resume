@@ -1,0 +1,22 @@
+/* To complement bootstrap.css with more unprinted elements */
+
+
+#btnIntl,
+#btnPrint,
+#goTo,
+#letsConnect,
+#nav,
+#navButton,
+#map,
+#mapDiv {
+  display: none;
+}
+
+#workExperience,
+#projects,
+#education {
+    display:block;
+    content: normal;
+}
+
+

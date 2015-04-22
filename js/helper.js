@@ -12,28 +12,34 @@ Cameron Pittman
 These are HTML strings. As part of the course, you'll be using JavaScript functions
 replace the %data% placeholder text you see in them.
 */
-var HTMLheaderName = '<h1 id="name">%data%</h1>';
-var HTMLheaderRole = '<span>%data%</span><hr/>';
 
+
+
+var HTMLheaderName = '<h1 id="name">%data%</h1>';
+var HTMLheaderRole = '<span id="role">%data%</span>';
+var internationalizeButton = '<span><button type="button" id="btnIntl" class="btn btn-info">Internationalize</button></span>';
+var printButton = '<button type="button" id="btnPrint" class="btn btn-info" onclick="resumePrint()"><span class="glyphicon glyphicon-print"></span> Print</button><hr/>';
 var HTMLcontactGeneric = '<li class="flex-item"><span class="orange-text">%contact%</span><span class="white-text">%data%</span></li>';
 var HTMLmobile = '<li class="flex-item"><span class="orange-text">mobile</span><span class="white-text">%data%</span></li>';
 var HTMLemail = '<li class="flex-item"><span class="orange-text">email</span><span class="white-text">%data%</span></li>';
 var HTMLtwitter = '<li class="flex-item"><span class="orange-text">twitter</span><span class="white-text">%data%</span></li>';
 var HTMLgithub = '<li class="flex-item"><span class="orange-text">github</span><span class="white-text">%data%</span></li>';
 var HTMLblog = '<li class="flex-item"><span class="orange-text">blog</span><span class="white-text">%data%</span></li>';
-var HTMLlocation = '<li class="flex-item"><span class="orange-text">location</span><span class="white-text">%data%</span></li>';
+var HTMLlocation = '<li class="flex-item"><span class="orange-text">location</span><span><a href="#mapDiv" title="See on the map" class="white-text" style="display:inline">%data%</span></a></li>';
 
-var HTMLbioPic = '<img src="%data%" class="biopic">';
+var HTMLbioPic = '<img src="%data%" class="biopic" alt="My Photo">';
 var HTMLwelcomeMsg = '<span class="welcome-message">%data%</span>';
 
-var HTMLskillsStart = '<h3 id="skillsH3">Skills at a Glance:</h3><ul id="skills" class="flex-box"></ul>';
+var HTMLskillsStart = '<h3 id="skillsH3">   Skills at a Glance:</h3><ul id="skills" class="flex-box"></ul>';
 var HTMLskills = '<li class="flex-item"><span class="white-text">%data%</span></li>';
+var HTMLNavStart = '<ul id="navButtons" class="nav__list"></ul>';
+var HTMLnavButton = '<li class="flex-item" id="nav__item"><span button type="button" class="btn btn-info">%data%</button></span></li>';
 
 var HTMLworkStart = '<div class="work-entry"></div>';
 var HTMLworkEmployer = '<a href="#">%data%';
 var HTMLworkTitle = ' - %data%</a>';
 var HTMLworkDates = '<div class="date-text">%data%</div>';
-var HTMLworkLocation = '<div class="location-text">%data%</div>';
+var HTMLworkLocation = '<div><span><a href="#mapDiv" title="See on the map" class="location-text" style="display:inline">%data%</span></a></div>';
 var HTMLworkDescription = '<p><br>%data%</p>';
 
 var HTMLprojectStart = '<div class="project-entry"></div>';
@@ -46,7 +52,7 @@ var HTMLschoolStart = '<div class="education-entry"></div>';
 var HTMLschoolName = '<a href="#">%data%';
 var HTMLschoolDegree = ' -- %data%</a>';
 var HTMLschoolDates = '<div class="date-text">%data%</div>';
-var HTMLschoolLocation = '<div class="location-text">%data%</div>';
+var HTMLschoolLocation = '<div><span><a href="#mapDiv" title="See on the map" class="location-text" style="display:inline">%data%</span></a></div>';
 var HTMLschoolMajor = '<em><br>Major: %data%</em>';
 
 var HTMLonlineClasses = '<h3>Online Classes</h3>';
@@ -55,7 +61,7 @@ var HTMLonlineSchool = ' - %data%</a>';
 var HTMLonlineDates = '<div class="date-text">%data%</div>';
 var HTMLonlineURL = '<br><a href="#">%data%</a>';
 
-var internationalizeButton = '<button>Internationalize</button>';
+var HTMLgoToTop = '<span><a id="goTo" href="#header">Go to Top</span></a>';
 var googleMap = '<div id="map"></div>';
 
 
@@ -63,11 +69,42 @@ var googleMap = '<div id="map"></div>';
 The International Name challenge in Lesson 2 where you'll create a function that will need this helper code to run. Don't delete! It hooks up your code to the button you'll be appending.
 */
 $(document).ready(function() {
-  $('button').click(function() {
-    var iName = inName() || function(){};
-    $('#name').html(iName);  
+  $('#btnIntl').click(function() {
+      var status = $('#btnIntl').text();
+      if (status === "Internationalize") {
+        var iName = inName() || function(){};
+        $('#name').html(iName); 
+        $('#btnIntl').text("Back");  
+      } else {
+        $('#name').html(bio.name);
+        $('#btnIntl').text("Internationalize");
+      }
+     
   });
 });
+
+/*XRef to http://stackoverflow.com/questions/16154650/how-to-print-a-hidden-div-when-printing-using-a-javascript-function
+ */
+function resumePrint () {
+  var printContent = document.getElementById('main');
+  var windowUrl = "about:blank";
+  var windowName = "Print";
+  var printWindow = window.open(windowUrl, windowName);
+  printWindow.document.write(printContent.innerHTML);    
+  printWindow.document.getElementById('workExperience').style.display = 'block';
+  printWindow.document.getElementById('projects').style.display = 'block';
+  printWindow.document.getElementById('education').style.display = 'block';
+  printWindow.document.getElementById('nav').style.display = 'none';
+  printWindow.document.getElementById('btnIntl').style.display = 'none';  
+  printWindow.document.getElementById('btnPrint').style.display = 'none';
+  printWindow.document.getElementById('mapDiv').style.display = 'none';
+  printWindow.document.getElementById('letsConnect').style.display = 'none';  
+  printWindow.document.close();
+  printWindow.focus();
+  printWindow.print();
+  printWindow.close();
+  return false;
+};
 
 /*
 The next few lines about clicks are for the Collecting Click Locations quiz in Lesson 2.
@@ -85,9 +122,10 @@ function logClicks(x,y) {
 }
 
 $(document).click(function(loc) {
-  // your code goes here!
+    var x = loc.pageX;
+    var y = loc.pageY;
+    logClicks(x,y);
 });
-
 
 
 /*
@@ -111,7 +149,7 @@ function initializeMap() {
 
   // This next line makes `map` a new Google Map JavaScript Object and attaches it to
   // <div id="map">, which is appended as part of an exercise late in the course.
-  map = new google.maps.Map(document.querySelector('#map'), mapOptions);
+ map = new google.maps.Map(document.querySelector('#map'), mapOptions);
 
 
   /*
@@ -170,8 +208,15 @@ function initializeMap() {
 
     // hmmmm, I wonder what this is about...
     google.maps.event.addListener(marker, 'click', function() {
-      // your code goes here!
+  service.getDetails(place, function(result, status) {
+      if (status != google.maps.places.PlacesServiceStatus.OK) {
+        alert(status);
+        return;
+      }
+      infoWindow.setContent(result.name);
+      infoWindow.open(map, marker);
     });
+  });
 
     // this is where the pin actually gets added to the map.
     // bounds.extend() takes in a map location object
@@ -185,17 +230,28 @@ function initializeMap() {
   /*
   callback(results, status) makes sure the search returned results for a location.
   If so, it creates a new map marker for that location.
-  */
+ */
   function callback(results, status) {
     if (status == google.maps.places.PlacesServiceStatus.OK) {
       createMapMarker(results[0]);
     }
   }
-
+/*
+function callback(results, status) {
+  if (status != google.maps.places.PlacesServiceStatus.OK) {
+    alert(status);
+    return;
+  }
+  for (var i = 0, result; result = results[i]; i++) {
+    createMapMarker(result);
+  }
+};*/    
+    
   /*
   pinPoster(locations) takes in the array of locations created by locationFinder()
   and fires off Google place searches for each location
   */
+   
   function pinPoster(locations) {
 
     // creates a Google place search service object. PlacesService does the work of
@@ -215,6 +271,7 @@ function initializeMap() {
       service.textSearch(request, callback);
     }
   }
+  
 
   // Sets the boundaries of the map based on pin locations
   window.mapBounds = new google.maps.LatLngBounds();
@@ -233,11 +290,11 @@ Uncomment the code below when you're ready to implement a Google Map!
 */
 
 // Calls the initializeMap() function when the page loads
-//window.addEventListener('load', initializeMap);
+window.addEventListener('load', initializeMap);
 
 // Vanilla JS way to listen for resizing of the window
 // and adjust map bounds
-//window.addEventListener('resize', function(e) {
-  // Make sure the map bounds get updated on page resize
-//  map.fitBounds(mapBounds);
-//});
+window.addEventListener('resize', function(e) {
+// Make sure the map bounds get updated on page resize
+ map.fitBounds(mapBounds);
+});
