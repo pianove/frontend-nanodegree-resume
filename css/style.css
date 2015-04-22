@@ -220,28 +220,6 @@ span {
   justify-content: space-around;
   }
 
-/*
-.nav {
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.nav__list {
-  width: 100%;
-  padding: 0;
-  margin: 0;
-}
-
-.nav__item {
-  box-sizing: border-box;
-  display: inline;
-  width: 24%;
-  text-align: center;
-  text-transform: uppercase;
-}
-*/
-
 @media only screen and (max-width: 1024px) {
   #letsConnect {
     margin-top: 5%;
