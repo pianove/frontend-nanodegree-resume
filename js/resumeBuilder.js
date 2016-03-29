@@ -1,3 +1,4 @@
+/*==========Model ===============*/
 var bio = {
     "name" : "Eniko Pianovszky",
     "role" : "web developer",
@@ -13,6 +14,7 @@ var bio = {
     "welcomeMessage" : "Hello, Thank You for reading my bio.",
     "skills" : ["Creative", "Teaching", "Multi-lingual","Volunteering", "Mother of three"],
 
+  /*==========Octopus ===============*/
     "display" : function () {
         var formattedName =
         HTMLheaderName.replace("%data%", bio.name);
